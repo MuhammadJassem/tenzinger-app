@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employees{% endblock %}
+
+{% block body %}
+    <div class="body">
+        <h1>Employees</h1>
+
+        {% include 'employee/compensation-form.html.twig' %}
+
+        <table>
+            <thead>
+            <tr>
+                <th>Employee Number</th>
+                <th>Name</th>
+                <th>Commuting Distance(one way)</th>
+                <th>Transportation Type</th>
+                <th>Weekly Office Working Days</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <td><a href="{{ path('employee', {'employee': employee.id.toString}) }}">{{ employee.employeeNumber }}</a></td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.commutingDistance }}</td>
+                    <td>{{ getTransportationName(employee.transportationType) }}</td>
+                    <td>{{ employee.weeklyOfficeWorkingDays }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

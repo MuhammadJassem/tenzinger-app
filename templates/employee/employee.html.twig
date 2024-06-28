@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employees{% endblock %}
+
+{% block body %}
+    <div class="body">
+        <h1>Employee</h1>
+        <div>Employee Number: {{ employee.employeeNumber }}</div>
+        <div>Name: {{ employee.name }}</div>
+        <div>Commuting Distance(one way): {{ employee.commutingDistance }}</div>
+        <div>Transportation Type: {{ getTransportationName(employee.transportationType) }}</div>
+        <div>Weekly Office Working Days: {{ employee.weeklyOfficeWorkingDays }}</div>
+        {% include 'employee/compensation-form.html.twig' %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compensations{% endblock %}
+
+{% block body %}
+    <div class="body">
+        <h1>Compensations({{ month }} - {{ year }})</h1>
+        {% if employee %}
+            <button onclick="window.location.href = '{{ path('compensations', {'year': year, 'month': month, 'format': 'csv', 'employee': employee.id.toString}) }}';">
+                Download as CSV
+            </button>
+        {% else %}
+            <button onclick="window.location.href = '{{ path('compensations', {'year': year, 'month': month, 'format': 'csv'}) }}';">
+                Download as CSV
+            </button>
+        {% endif %}
+        <table>
+            <thead>
+            <tr>
+                <th>Employee Number</th>
+                <th>Name</th>
+                <th>Total Commuted Distance</th>
+                <th>Transportation Type</th>
+                <th>Total Office Working Days</th>
+                <th>Compensation</th>
+                <th>Paid At</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for compensation in compensations %}
+                <tr>
+                    <td><a href="{{ path('employee', {'employee': compensation.employee.id.toString}) }}">{{ compensation.employee.employeeNumber }}</a></td>
+                    <td>{{ compensation.employee.name }}</td>
+                    <td>{{ compensation.commutedDistance }}</td>
+                    <td>{{ getTransportationName(compensation.transportationType) }}</td>
+                    <td>{{ compensation.numberOfDays }}</td>
+                    <td>{{ compensation.compensationAmount }}</td>
+                    <td>{{ compensation.paidAt|date('d-m-Y') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}
